@@ -1,0 +1,12 @@
+PROGRAMA "exemplo":
+INICIO
+int x = 10
+if (x > 5) {
+float x = x * 2.5
+}
+void func abc(int a){
+return a + 10
+}
+x = abc(x)
+return x
+FIM

@@ -1,0 +1,64 @@
+<program> ::= "PROGRAMA" <ws>? <quoted_identifier> ":" <nl> "INICIO" <nl> <block> "FIM" <ws>? <nl>?
+
+<quoted_identifier> ::= "\"" <identifier> "\""
+
+<block> ::= (<command_line>)* (<final_assignment_line>)?
+
+<command_line> ::= <variable_declaration_line>
+                 | <assignment_line>
+                 | <conditional>
+                 | <loop>
+                 | <function_call_line>
+                 | <function_declaration>
+
+<variable_declaration_line> ::= <type> <ws> <identifier> (<ws>? "=" <ws>? <expression>)? <ws>? <nl>
+
+<assignment_line> ::= <identifier> <ws>? "=" <ws>? <expression> <ws>? <nl>
+
+<final_assignment_line> ::= "return" <ws>?  <ws>? <expression> <ws>? <nl>
+
+<conditional> ::= "if" <ws>? "(" <logical_expression> ")" <ws>? "{" <nl> <block> "}" <nl>? (<ws>? "elif" <ws>? "{" <nl> <block> "}" <nl>?)?
+
+<logical_expression> ::= <expression> (<ws>? <relational_operator> <ws>? <expression>)?
+
+<relational_operator> ::= "==" | "!=" | "<" | ">" | "<=" | ">="
+
+<loop> ::= "while" <ws>? "(" <expression> ")" <ws>? "{" <nl> <block> "}" <nl>?
+
+<function_declaration> ::= <return_type> <ws> "func" <ws> <identifier> <ws>? "(" <parameters>? ")" <ws>? "{" <nl> <block> "}" <nl>?
+
+<parameters> ::= <parameter> ("," <ws>? <parameter>)*
+<parameter> ::= <type> <ws> <identifier>
+
+<function_call_line> ::= <identifier> <ws>? "(" <arguments>? ")" <ws>? <nl>
+<arguments> ::= <expression> ("," <ws>? <expression>)*
+
+<return_type> ::= "void" | <type>
+<type> ::= "int" | "float" | "char"
+
+<expression> ::= <term> ( <ws>? ("+" | "-") <ws>? <term> )*
+<term> ::= <factor> ( <ws>? ("*" | "/") <ws>? <factor> )*
+<factor> ::= "(" <ws>? <expression> <ws>? ")" 
+         | <number> 
+         | <identifier>
+         | <function_call_inline>
+
+<function_call_inline> ::= <identifier> <ws>? "(" <arguments>? ")"
+
+<number> ::= <positive> | <negative>
+<positive> ::= <integer> <fraction>? <exponent>?
+<negative> ::= "-" <positive>
+<fraction> ::= "." <digit>+
+<exponent> ::= "e" "-"? <digit>+
+
+<integer> ::= "0" | <non_zero_digit> <digit>*
+
+<identifier> ::= <letter> <letter_or_digit>*
+<letter_or_digit> ::= <letter> | <digit> | "_"
+<letter> ::= ([a-z] | [A-Z])+
+
+<digit> ::= [0-9]
+<non_zero_digit> ::= [1-9]
+
+<ws> ::= (" " | "\t")*
+<nl> ::= "\n"
