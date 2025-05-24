@@ -1,0 +1,26 @@
+<program>   ::= <label> "\n" <start> <statement> "\n" <res_statement> "\n" <end>
+
+<label>     ::= "PROGRAMA " "\"" <var> "\":"
+<start>     ::= "INICIO\n"
+<end>       ::= "FIM" "\n"*
+
+<statement> ::= <ass_statement>
+              | <statement> "\n" <statement>
+
+<res_statement> ::= <ws> "RES" <ws> "=" <ws> <exp>
+
+<ass_statement> ::= <ws> <var> <ws> "=" <ws> <exp>
+
+<exp>       ::= <term> ( <ws> <addop> <ws> <term> )*
+<term>      ::= <factor> ( <ws> <mulop> <ws> <factor> )*
+<factor>    ::= <num>
+              | <var>
+              | "(" <ws> <exp> <ws> ")"
+
+<addop>     ::= "+" | "-"
+<mulop>     ::= "*" | "/"
+
+<ws> ::= (" " | "\t")*
+
+<num>       ::= [0-9]+
+<var>       ::= ([a-z] | [A-Z])+

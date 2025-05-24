@@ -1,0 +1,7 @@
+PROGRAMA "exemplo":
+INICIO
+A = 4
+B = 2
+C = A + B
+RES = C
+FIM
